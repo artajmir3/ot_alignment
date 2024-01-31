@@ -27,8 +27,12 @@ Also, these are some optional keywords:
 * `sampling_method`: The moethod used for sampling point clouds. Only valid options are `cvt` and `trn` with default to `trn`.
 
 Here are some examples of usage of this command:
-``` ot_alignment show_points #1 sampling_method cvt n 50 random_seed 1 color #55aaff thresh 0.1```
-``` ot_alignment show_points #2```
+```
+ot_alignment show_points #1 sampling_method cvt n 50 random_seed 1 color #55aaff thresh 0.1
+```
+```
+ot_alignment show_points #2
+```
 
 ## Perform AlignOT
 To use the AlignOT method for alignment of two density maps, first open two maps and put them in the desired initial position. Next, use the `ot_alignment AlignOT` command. The basic usage is:
@@ -44,8 +48,12 @@ In result this command moves **model_id2** to align with **model_id1**(fixed). A
 * `reg`: The regularization parameter used for computing entropy-regularized wasserstein distance. Teh default value is `100`.
 
 Here are some examples of usage of this command:
-```ot_alignment AlignOT #1 #2 random_seed 1 max_iter 100 thresh 0.1```
-```ot_alignment AlignOT #3 #4```
+```
+ot_alignment AlignOT #1 #2 random_seed 1 max_iter 100 thresh 0.1
+```
+```
+ot_alignment AlignOT #3 #4
+```
 
 ## Perform EMPOT
 To use the EMPOT method for alignment of two density maps, first open two maps and put them in the desired initial position. Next, use the `ot_alignment EMPOT` command. The basic usage is:
@@ -59,5 +67,9 @@ In result this command moves **model_id2** to align with **model_id1**(fixed). A
 * `random_seed`: Random seed used in methods.
 
 Here are some examples of usage of this command:
-```ot_alignment EMPOT #1 #2 random_seed 1 num 5 thresh 0.1```
-```ot_alignment EMPOT #3 #4```
+```
+ot_alignment EMPOT #1 #2 random_seed 1 num 5 thresh 0.1
+```
+```
+ot_alignment EMPOT #3 #4
+```
