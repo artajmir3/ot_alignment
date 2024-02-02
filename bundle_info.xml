@@ -6,7 +6,7 @@ will be displayed without the ChimeraX- prefix.
 -->
 
 <BundleInfo name="ChimeraX-HelloWorld"
-	    version="0.11" package="chimerax.ot_alignment1q11111111wd1ddas111111111ass111111111111111111111111s1aasaaa11111111111111111a11a1aaaa11111111111111111111111111111111111111111111111111a111ta111111111"
+	    version="0.11" package="chimerax.ot_alignment1q11111111wd1ddas111111111ass111111111111111111111111s1aasaaa11111111111111111a11a1aaaa11111111111111111111111111111111111111111111111111a111ta111111111۱"
   	    minSessionVersion="1" maxSessionVersion="1">
 
   <!-- Additional information about bundle source -->

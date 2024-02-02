@@ -127,12 +127,23 @@ def perform_empot(session, volumes, n=500, thresh=0, num=2, random_seed=None, sa
 
 	session.logger.info("spent %.2f(s)"%(time.time() - t,))
 
-def perform_alignot(session, volumes, n=500, thresh=0, lr=0.0001, max_iter=500, reg=100, random_seed=None):
+def perform_alignot(session, volumes, n=500, thresh=0, lr=0.0001, max_iter=500, reg=100, random_seed=None, sampling_method='trn'):
 # def perform_alignot(session, volumes, n=500, thresh=0, lr=0.000005, max_iter=100, reg=100000, random_seed=None):
 	session.logger.info("perform alignot")
 	t = time.time()
 
-	trn = TRNPointSampler(volumes[0], random_seed=random_seed)
+	if len(volumes) != 2:
+		raise CommandError('this command requires exactly 1 volume, got %d' % len(volumes))
+
+	sampling_class = None
+	if sampling_method == 'trn':
+		sampling_class = TRNPointSampler
+	elif sampling_method == 'cvt':
+		sampling_class = CVTPointSampler
+	else:
+		raise CommandError('sampling method should be either trn or cvt, got %d' % len(volumes))
+		
+	trn = sampling_class(volumes[0], random_seed=random_seed)
 	trn.threshold(thresh)
 	trn.sample(n)
 	trn1 = TRNPointSampler(volumes[1], random_seed=random_seed)
@@ -194,7 +205,8 @@ alignot_desc = CmdDesc(required = varg,
 							('max_iter', IntArg),
 							('random_seed', IntArg),
 							('lr', FloatArg),
-							('reg', FloatArg)], 
+							('reg', FloatArg),
+							('sampling_method', StringArg)], 
 					synopsis = 'Perform AlignOT to align given volumes')
 illustrate_points_desc = CmdDesc(required = varg, 
 							keyword = [('n', IntArg),
