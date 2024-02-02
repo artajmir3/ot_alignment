@@ -16,10 +16,12 @@ will be displayed without the ChimeraX- prefix.
 
   <!-- Synopsis is a one-line description
        Description is a full multi-line description -->
-  <Synopsis>Using Optimal Transport for alignment of density maps</Synopsis>
-  <Description>Basic example code for implementing ChimeraX bundle.
+  <Synopsis>An implementation of two Optimal Transport based density map alignment methods</Synopsis>
+  <Description>Based on the methods introduced in the following papers:
 
-Implements command "hello" to print the string "hello world" in the log.
+    Aryan Tajmir Riahi, Geoffrey Woollard, Frédéric Poitevin, Anne Condon, and Khanh Dao Duc. "AlignOT: An optimal transport based algorithm for fast 3D alignment with applications to cryogenic electron microscopy density maps." IEEE/ACM Transactions on Computational Biology and Bioinformatics (2023).
+
+    Aryan Tajmir Riahi, Chenwei Zhang, James Chen, Anne Condon, and Khanh Dao Duc. "EMPOT: partial alignment of density maps and rigid body fitting using unbalanced Gromov-Wasserstein divergence." arXiv preprint arXiv:2311.00850 (2023).
   </Description>
 
   <!-- Categories is a list where this bundle should appear -->  <Categories>
