@@ -254,33 +254,18 @@ def diff_quaternions(q1, q2):
 	else:
 		return deg
 
-# def transform_map(volume, alignment):
-# 	v = volume.writable_copy(require_copy = True, copy_colors = False)
-# 	volume.session.logger.info(str(v.id))
-# 	volume.session.logger.info(str(volume.id))
-# 	Bbar = alignment['Bbar']
-# 	Abar = alignment['Abar']
-# 	rot = None
-# 	if 'q' not in alignment.keys():
-# 		rot = change_quat_format(alignment['r'].as_quat())
-# 	else:
-# 		rot = alignment['q']
-# 	volume.session.logger.info(str(rot))
-	
-# 	volume.session.logger.info(str(v.ijk_to_global_xyz([0,0,0])))
-
-# 	run(v.session, "move %f,%f,%f models #%d"%(-Bbar[0], -Bbar[1], -Bbar[2], v.id[0]))
-# 	volume.session.logger.info(str(v.ijk_to_global_xyz([0,0,0])))
-
-# 	v = v.writable_copy(require_copy = True, copy_colors = False)
-
-# 	run(v.session, "turn %f,%f,%f %f center 0,0,0 models #%d"%(rot[1], rot[2], rot[3], math.acos(rot[0]) * 180 / math.pi *2, v.id[0]))
-
-# 	v = v.writable_copy(require_copy = True, copy_colors = False)
-
-# 	run(v.session, "move %f,%f,%f models #%d"%(Abar[0], Abar[1], Abar[2], v.id[0]))
-
 def transform_map(volume, alignment):
+	"""
+	Transform a given volume by a given alignment
+	params:
+		volume: a chimerax volume class
+		alignment: a dictionary containing `Abar`, `Bbar` and at least one of the `q` oe `r` keys. Each point is tranported to 
+			p_after = Abar + R*(p_before - Bbar) where R is the rotation inferred from `r` or `q` key. Use `q` for quaternion representation
+			of R and `r` for scipy.spatial.transform.Rotation format
+
+	return:
+		It will copy the volume, transport the coppied version and return it
+	"""
 	v = volume.writable_copy(require_copy = True, copy_colors = False)
 	Bbar = alignment['Bbar']
 	Abar = alignment['Abar']
@@ -304,18 +289,8 @@ def transform_map(volume, alignment):
 	p_Bbar = Place(axes=axes_nor, origin=origin_Bbar)
 	p_Abar = Place(axes=axes_nor, origin=origin_Abar)
 	p_rot = Place(axes=axes_rot, origin=origin_not)
-	# p = Place(axes=np.asarray([[1,0,0],[0,1,0],[0,0,1]]), origin=np.asarray([10,0,0]))
-
-	# run(v.session, "move %f,%f,%f models #%d"%(-Bbar[0], -Bbar[1], -Bbar[2], v.id[0]))
+	
 	v.scene_position = p_Bbar * v.scene_position
-	# volume.session.logger.info(str(v.ijk_to_global_xyz([0,0,0])))
-
-	v = v.writable_copy(require_copy = True, copy_colors = False)
-
 	v.scene_position = p_rot * v.scene_position
-	# run(v.session, "turn %f,%f,%f %f center 0,0,0 models #%d"%(rot[1], rot[2], rot[3], math.acos(rot[0]) * 180 / math.pi *2, v.id[0]))
-
-	v = v.writable_copy(require_copy = True, copy_colors = False)
-
 	v.scene_position = p_Abar * v.scene_position
-	# run(v.session, "move %f,%f,%f models #%d"%(Abar[0], Abar[1], Abar[2], v.id[0]))
+	return v
