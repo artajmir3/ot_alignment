@@ -1,3 +1,4 @@
+
 # Installation 
 To use this bundle, first download the whole repository and save it in a desired directory. Next, open ChimeraX and run the following command:
 ```
@@ -47,6 +48,7 @@ As a result this command moves **model_id2** to align with **model_id1**(fixed).
 * `lr`: The learning rate used in the SGD-like algorithm. The default value is `0.0001`.
 * `reg`: The regularization parameter used for computing entropy-regularized Wasserstein distance. The default value is `100`.
 * `sampling_method`: The method used for sampling point clouds. The only valid options are `cvt` and `trn` with default to `trn`.
+* `local_refinement`: Whether we use a final step of `fitmap` to refine results or not. The default value is `True`.
 
 Here are some examples of usage of this command:
 ```
@@ -67,6 +69,7 @@ As a result this command moves **model_id2** to align with **model_id1**(fixed).
 * `num`: Number of alignments done, before choosing the best one. The default value is `2`.
 * `random_seed`: Random seed used in methods.
 * `sampling_method`: The method used for sampling point clouds. The only valid options are `cvt` and `trn` with default to `trn`.
+* `local_refinement`: Whether we use a final step of `fitmap` to refine results or not. The default value is `True`.
 
 Here are some examples of usage of this command:
 ```

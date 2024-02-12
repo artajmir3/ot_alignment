@@ -8,7 +8,7 @@ from .alignot import *
 
 from chimerax.core.commands import CmdDesc
 from chimerax.map import MapsArg, MapStepArg, Float1or3Arg, ValueTypeArg
-from chimerax.core.commands import IntArg, StringArg, FloatArg
+from chimerax.core.commands import IntArg, StringArg, FloatArg, BoolArg
 from chimerax.core.errors import UserError as CommandError
 
 from chimerax.core.commands import run
@@ -91,7 +91,7 @@ def hello_world(session, volumes):
 # 	session.logger.info("Hello world!")
 # 	transform_map(volumes[1], best_alignment)
 
-def perform_empot(session, volumes, n=500, thresh=0, num=2, random_seed=None, sampling_method='trn'):
+def perform_empot(session, volumes, n=500, thresh=0, num=2, random_seed=None, sampling_method='trn', local_refinement=True):
 	session.logger.info("perform empot")
 	t = time.time()
 
@@ -123,11 +123,14 @@ def perform_empot(session, volumes, n=500, thresh=0, num=2, random_seed=None, sa
 
 	best_alignment = find_best_score(alignments)
 	session.logger.info(str(best_alignment))
-	transform_map(volumes[1], best_alignment)
+	v_res = transform_map(volumes[1], best_alignment)
+
+	if local_refinement:
+		run(session, 'fitmap #%d inMap #%d'%(v_res.id[0], volumes[0].id[0]))
 
 	session.logger.info("spent %.2f(s)"%(time.time() - t,))
 
-def perform_alignot(session, volumes, n=500, thresh=0, lr=0.0001, max_iter=500, reg=100, random_seed=None, sampling_method='trn'):
+def perform_alignot(session, volumes, n=500, thresh=0, lr=0.0001, max_iter=500, reg=100, random_seed=None, sampling_method='trn', local_refinement=True):
 # def perform_alignot(session, volumes, n=500, thresh=0, lr=0.000005, max_iter=100, reg=100000, random_seed=None):
 	session.logger.info("perform alignot")
 	t = time.time()
@@ -161,8 +164,10 @@ def perform_alignot(session, volumes, n=500, thresh=0, lr=0.0001, max_iter=500, 
 	alignment['q'] = quaternions[-1]
 	alignment['q'][0] *= -1
 	session.logger.info(str(alignment))
-	transform_map(volumes[1], alignment)
-	# transform_map1(volumes[1], alignment)
+	v_res = transform_map(volumes[1], alignment)
+
+	if local_refinement:
+		run(session, 'fitmap #%d inMap #%d'%(v_res.id[0], volumes[0].id[0]))
 
 	session.logger.info("spent %.2f(s)"%(time.time() - t,))
 
@@ -197,7 +202,8 @@ empot_desc = CmdDesc(required = varg,
 							('thresh', FloatArg),
 							('num', IntArg),
 							('random_seed', IntArg),
-							('sampling_method', StringArg)], 
+							('sampling_method', StringArg),
+							('local_refinement', BoolArg)], 
 					synopsis = 'Perform EMPOT to align given volumes')
 alignot_desc = CmdDesc(required = varg, 
 					keyword = [('n', IntArg),
@@ -206,7 +212,8 @@ alignot_desc = CmdDesc(required = varg,
 							('random_seed', IntArg),
 							('lr', FloatArg),
 							('reg', FloatArg),
-							('sampling_method', StringArg)], 
+							('sampling_method', StringArg),
+							('local_refinement', BoolArg)], 
 					synopsis = 'Perform AlignOT to align given volumes')
 illustrate_points_desc = CmdDesc(required = varg, 
 							keyword = [('n', IntArg),
