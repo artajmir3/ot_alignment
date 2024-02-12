@@ -16,81 +16,6 @@ from chimerax.geometry import Place
 
 
 
-def hello_world(session, volumes):
-# 	# All command functions are invoked with ``session`` as its
-# 	# first argument.  Useful session attributes include:
-# 	#   logger: chimerax.core.logger.Logger instance
-# 	#   models: chimerax.core.models.Models instance
-	session.logger.info("Hello world!")
-# 	session.logger.info(str(volumes))
-	session.logger.info(str(volumes[0]))
-	session.logger.info(str(volumes[0].scene_position))
-	from chimerax.geometry import identity
-	point_to_scene_transform = identity()
-	session.logger.info(str(help(identity())))
-	m, xyz_to_ijk_tf = volumes[0].matrix_and_transform(point_to_scene_transform, subregion = None, step = None)
-	session.logger.info(str(m))
-	session.logger.info(str(xyz_to_ijk_tf))
-	session.logger.info(str(help(xyz_to_ijk_tf)))
-
-	trn = TRNPointSampler(volumes[0], random_seed=1)
-	trn.map_th = m.copy()
-	trn.sample(50)
-	points = []
-	for i in range(len(trn.x)):
-		points.append(np.asarray([trn.x[i], trn.y[i], trn.z[i]]))
-	points = np.asarray(points)
-	xyz_to_ijk_tf.inverse().transform_points(points, in_place = True)
-	trn.x = []
-	trn.y = []
-	trn.z = []
-	for i in range(len(points)):
-		trn.x.append(points[i][0])
-		trn.y.append(points[i][1])
-		trn.z.append(points[i][2])
-	size=2
-	color='#ff5a5a'
-	for i in range(len(points)):
-		run(session, "shape sphere radius %d center %f,%f,%f color %s"%(size, trn.x[i], trn.y[i], trn.z[i], color))
-
-
-	v = volumes[0].writable_copy(require_copy = True, copy_colors = False)
-	p = Place(axes=np.asarray([[1,0,0],[0,1,0],[0,0,1]]), origin=np.asarray([10,0,0]))
-	v.scene_position = p * v.scene_position
-
-
-# 	session.logger.info(str(volumes[1]))
-# 	session.logger.info(str(help(volumes[0])))
-# 	session.logger.info(str(help(volumes[0].session)))
-# 	#session.logger.info(str(volumes[0].data.rotation))
-# 	#session.logger.info(str(volumes[0].data.origin))
-# 	#session.logger.info(str(volumes[0].data.voxel_volume()))
-# 	#session.logger.info(str(volumes[0].data.ijk_to_xyz([0,0,0])))
-# 	#session.logger.info(str(volumes[0].ijk_to_global_xyz([0,0,0])))
-# 	#session.logger.info(str(volumes[0].ijk_to_global_xyz([0.5,0,0])))
-# 	#session.logger.info(str(volumes[0].data.ijk_to_xyz([50,50,50])))
-# 	#session.logger.info(str(volumes[0].data.matrix()[50][50][50]))
-# 	#session.logger.info(str(volumes[0].matrix()[50][50][50]))
-# 	#session.logger.info(str(volumes[0].id))
-# 	session.logger.info("Hello world!")
-
-# 	trn = TRNPointSampler(volumes[0])
-# 	trn.threshold(0.557)
-# 	trn.sample(500)
-# 	#trn.show_points()
-
-# 	trn1 = TRNPointSampler(volumes[1])
-# 	trn1.threshold(0.557)
-# 	trn1.sample(500)
-# 	#trn1.show_points()
-
-# 	alignments = align_pointcloud(trn, trn1)
-
-# 	best_alignment = find_best_score(alignments)
-# 	session.logger.info(str(best_alignment))
-# 	session.logger.info("Hello world!")
-# 	transform_map(volumes[1], best_alignment)
-
 def perform_empot(session, volumes, n=500, thresh=0, num=2, random_seed=None, sampling_method='trn', local_refinement=True):
 	session.logger.info("perform empot")
 	t = time.time()
@@ -131,7 +56,6 @@ def perform_empot(session, volumes, n=500, thresh=0, num=2, random_seed=None, sa
 	session.logger.info("spent %.2f(s)"%(time.time() - t,))
 
 def perform_alignot(session, volumes, n=500, thresh=0, lr=0.0001, max_iter=500, reg=100, random_seed=None, sampling_method='trn', local_refinement=True):
-# def perform_alignot(session, volumes, n=500, thresh=0, lr=0.000005, max_iter=100, reg=100000, random_seed=None):
 	session.logger.info("perform alignot")
 	t = time.time()
 
@@ -193,10 +117,7 @@ def illustrate_points(session, volumes, n=500, random_seed=None, size=2, color='
 
 
 
-# CmdDesc contains the command description.  For the
-# "hello" command, we expect no arguments.
 varg = [('volumes', MapsArg)]
-hello_world_desc = CmdDesc(required = varg)
 empot_desc = CmdDesc(required = varg, 
 					keyword = [('n', IntArg),
 							('thresh', FloatArg),

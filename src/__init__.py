@@ -47,18 +47,6 @@ class _MyAPI(BundleAPI):
 				desc.synopsis = ci.synopsis
 			func = cmd.illustrate_points
 
-			
-		elif ci.name == "ot_alignment test":
-			desc = cmd.hello_world_desc
-			if desc.synopsis is None:
-				desc.synopsis = ci.synopsis
-			func = cmd.hello_world
-
-		# We then register the function as the command callback
-		# with the chimerax.core.commands module.
-		# Note that the command name registered is not hardwired,
-		# but actually comes from bundle_info.xml.  In this example,
-		# the command name is "hello", not "hello world".
 		from chimerax.core.commands import register
 		register(ci.name, desc, func)
 

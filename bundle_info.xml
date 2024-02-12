@@ -67,8 +67,6 @@ will be displayed without the ChimeraX- prefix.
   Print "hello world" in the log</ChimeraXClassifier>
     <ChimeraXClassifier>ChimeraX :: Command :: ot_alignment AlignOT :: General ::
   Print "hello world" in the log</ChimeraXClassifier>
-    <ChimeraXClassifier>ChimeraX :: Command :: ot_alignment test :: General ::
-  Print "hello world" in the log</ChimeraXClassifier>
   </Classifiers>
 
 </BundleInfo>
