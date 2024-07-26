@@ -1,3 +1,5 @@
+# Description
+
 
 # Installation 
 To use this bundle, first download the whole repository and save it in a desired directory. Next, open ChimeraX and run the following command:
@@ -14,12 +16,12 @@ devel clean Path/To/Source/Code
 ```
 
 # Usage
-## Illustrate point clouds 
-Both methods covered in this bundle, rely on converting density maps to point clouds. For this purpose, we used two methods, Topology Representing Networks (TRN) and Centroidal Voronoi Tesselation (CVT). For illustration purposes, you can use ```ot_alignment show_points``` command to show the point_clouds on ChimeraX. The basic usage is:
+## Generating point clouds 
+Alignment methods covered in this bundle rely on converting density maps to point clouds. For this purpose, two methods can be used: (1) Topology Representing Networks (TRN) and (2) Centroidal Voronoi Tesselation (CVT). To visualize point clouds, use ```ot_alignment show_points``` command to show the point_clouds on ChimeraX. The basic usage is:
 ```
 ot_alignment show_points [model_id]
 ```
-Also, these are some optional keywords:
+with the optional keywords:
 * `n`: Number of sampled points. the default value is `500`.
 * `size`: Radius of each sphere representing the points. The default value is `2`.
 * `random_seed`: Random seed used in methods.
@@ -35,7 +37,7 @@ ot_alignment show_points #1 sampling_method cvt n 50 random_seed 1 color #55aaff
 ot_alignment show_points #2
 ```
 
-## Perform AlignOT
+## Performing AlignOT
 To use the AlignOT method for the alignment of two density maps, first open two maps and put them in the desired initial position. Next, use the `ot_alignment AlignOT` command. The basic usage is:
 ```
 ot_alignment AlignOT [model_id1] [model_id2]
@@ -58,7 +60,7 @@ ot_alignment AlignOT #1 #2 random_seed 1 max_iter 100 thresh 0.1
 ot_alignment AlignOT #3 #4
 ```
 
-## Perform EMPOT
+## Performing EMPOT
 To use the EMPOT method for the alignment of two density maps, first open two maps and put them in the desired initial position. Next, use the `ot_alignment EMPOT` command. The basic usage is:
 ```
 ot_alignment EMPOT [model_id1] [model_id2]
