@@ -1,4 +1,7 @@
 # Description
+ot_alignment is a plugin for ChimeraX, which allows users to align density maps with methods based on the Optimal Transport (OT) theory. This bundle aggregates the methods used in [AlignOT]{https://arxiv.org/abs/2210.09361} and [EMPOT]{https://arxiv.org/abs/2311.00850} paper. 
+
+This is the repository for distributing our software. For installing and running the software, please refer to the User Manual pdf file or see below.
 
 
 # Installation 
