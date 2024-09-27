@@ -37,6 +37,7 @@ ot_alignment show_points #1 sampling_method cvt n 50 random_seed 1 color #55aaff
 ```
 ot_alignment show_points #2
 ```
+![show_points command example](README_files/show_points.png)
 
 ## Performing AlignOT
 To use the AlignOT method for the alignment of two density maps, first open two maps and put them in the desired initial position. Next, use the `ot_alignment AlignOT` command. The basic usage is:
@@ -60,6 +61,7 @@ ot_alignment AlignOT #1 #2 random_seed 1 max_iter 100 thresh 0.1
 ```
 ot_alignment AlignOT #3 #4
 ```
+![AlignOT command example](README_files/AlignOT.png)
 
 ## Performing EMPOT
 To use the EMPOT method for the alignment of two density maps, first open two maps and put them in the desired initial position. Next, use the `ot_alignment EMPOT` command. The basic usage is:
@@ -81,3 +83,4 @@ ot_alignment EMPOT #1 #2 random_seed 1 num 5 thresh 0.1
 ```
 ot_alignment EMPOT #3 #4
 ```
+![EMPOT command example](README_files/EMPOT.png)
